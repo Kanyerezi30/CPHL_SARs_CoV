@@ -15,3 +15,4 @@ dependencies:
   - bcftools
   - tabix
   - nextclade
+  - trim_galore
