@@ -1,0 +1,17 @@
+name: sarscov
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+  - kantorlab
+dependencies:
+  - fastqc=0.11.9
+  - multiqc=1.13a
+  - trimmomatic
+  - bowtie2
+  - sambamba
+  - samtools
+  - bedtools
+  - bcftools
+  - tabix
+  - nextclade
