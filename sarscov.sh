@@ -16,9 +16,21 @@ printf "\e[4mIndex the reference genome...\n\e[0m"
 
 printf "\e[4mAlign the reads to the reference genome...\n\e[0m"
 
-for i in $(ls tmp/*gz | cut -f1 -d"_" | cut -f2 -d"/" | sort -u)
+#for i in $(ls tmp/*gz | cut -f1 -d"_" | cut -f2 -d"/" | sort -u)
+#do
+#	R1=$(ls tmp/${i}*R1*gz)
+#	R2=$(ls tmp/${i}*R2*gz)
+#	bowtie2 -p 40 -x reference/sarscovReference -1 $R1 -2 $R2 > ${i}.sam
+#done
+
+printf "\e[4mProcessing sam...\n\e[0m"
+
+for i in $(ls *sam)
 do
-	R1=$(ls tmp/${i}*R1*gz)
-	R2=$(ls tmp/${i}*R2*gz)
-	bowtie2 -p 40 -x reference/sarscovReference -1 $R1 -2 $R2 > ${i}.sam
+	output=$(echo $i | cut -f1 -d".")
+	samtools sort -n -O bam -o ${output}_namesort.bam $i -@ 40
+	samtools fixmate -m ${output}_namesort.bam ${output}_fixmate.bam -@ 40
+	samtols sort -O bam -o ${output}_sorted.bam -T${output}_temp.txt ${output}_fixmate.bam -@ 40
+	samtools markdup -r -s ${output}_sorted.bam ${output}_markdup.bam -@ 40
+	samtools index ${output}_markdup.bam -@ 40
 done
