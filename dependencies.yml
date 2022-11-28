@@ -16,3 +16,4 @@ dependencies:
   - tabix
   - nextclade
   - trim_galore
+  - lofreq
