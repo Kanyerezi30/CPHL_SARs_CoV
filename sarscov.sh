@@ -47,10 +47,19 @@ printf "\e[4mCall variants...\n\e[0m"
 
 printf "\e[4mBuild consensus genome...\n\e[0m"
 
-for i in $(ls *indel.vcf)
+#for i in $(ls *indel.vcf)
+#do
+#	output=$(echo $i | cut -f1 -d"_")
+	#bgzip -c $i 1> ${output}_indel.vcf.gz
+	#tabix ${output}_indel.vcf.gz
+#	bcftools consensus -f reference/sequence.fasta ${output}_indel.vcf.gz -o ${output}_consensus.fa
+#done
+
+printf "\e[4mCalculate coverage...\n\e[0m"
+
+for i in $(ls *markdup.bam)
 do
 	output=$(echo $i | cut -f1 -d"_")
-	bgzip -c $i 1> ${output}_indel.vcf.gz
-	tabix ${output}_indel.vcf.gz
-	bcftools consensus -f reference/sequence.fasta ${output}_indel.vcf.gz -o ${output}_consensus.fa
+	cov=$(samtools depth $i |  awk '{sum+=$3} END { print sum/NR}')
+	echo "$output,$cov" >> coverage.txt
 done
