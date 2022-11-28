@@ -64,4 +64,11 @@ printf "\e[4mCalculate coverage...\n\e[0m"
 #	echo "$output,$cov" >> coverage.txt
 #done
 
-nextclade run --input-dataset=/home/kanye/data/sars-cov-2 --output-csv=nextclade22.csv *fa
+for i in $(ls *fa)
+do
+	output=$(echo $i | cut -f1 -d"_" | cut -f2 -d"-")
+	echo ">hCoV-19/Uganda/$output/2022" >> all_sequences.fasta
+	cat $i | grep -v ">" >> all_sequences.fasta
+done
+
+nextclade run --input-dataset=/home/kanye/data/sars-cov-2 --output-csv=nextclade23.csv all_sequences.fasta
