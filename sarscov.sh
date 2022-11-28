@@ -64,4 +64,4 @@ printf "\e[4mCalculate coverage...\n\e[0m"
 #	echo "$output,$cov" >> coverage.txt
 #done
 
-nextclade run --input-dataset=/home/kanye/sars-cov-2 --output-csv=nextclade.csv *fa
+nextclade run --input-dataset=/home/kanye/data/sars-cov-2 --output-csv=nextclade22.csv *fa
