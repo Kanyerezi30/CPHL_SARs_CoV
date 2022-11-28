@@ -57,9 +57,11 @@ printf "\e[4mBuild consensus genome...\n\e[0m"
 
 printf "\e[4mCalculate coverage...\n\e[0m"
 
-for i in $(ls *markdup.bam)
-do
-	output=$(echo $i | cut -f1 -d"_")
-	cov=$(samtools depth $i |  awk '{sum+=$3} END { print sum/NR}')
-	echo "$output,$cov" >> coverage.txt
-done
+#for i in $(ls *markdup.bam)
+#do
+#	output=$(echo $i | cut -f1 -d"_")
+#	cov=$(samtools depth $i |  awk '{sum+=$3} END { print sum/NR}')
+#	echo "$output,$cov" >> coverage.txt
+#done
+
+nextclade run --input-dataset=/home/kanye/sars-cov-2 --output-csv=nextclade.csv *fa
