@@ -30,7 +30,7 @@ do
 	output=$(echo $i | cut -f1 -d".")
 	samtools sort -n -O bam -o ${output}_namesort.bam $i -@ 40
 	samtools fixmate -m ${output}_namesort.bam ${output}_fixmate.bam -@ 40
-	samtols sort -O bam -o ${output}_sorted.bam -T${output}_temp.txt ${output}_fixmate.bam -@ 40
+	samtools sort -O bam -o ${output}_sorted.bam -T${output}_temp.txt ${output}_fixmate.bam -@ 40
 	samtools markdup -r -s ${output}_sorted.bam ${output}_markdup.bam -@ 40
 	samtools index ${output}_markdup.bam -@ 40
 done
