@@ -37,10 +37,20 @@ printf "\e[4mProcessing sam...\n\e[0m"
 
 printf "\e[4mCall variants...\n\e[0m"
 
-for i in $(ls *markdup.bam)
+#for i in $(ls *markdup.bam)
+#do
+#	output=$(echo $i | cut -f1 -d"_")
+#	lofreq indelqual $i --dindel -f reference/sequence.fasta -o ${output}_indel.bam
+#	samtools index ${output}_indel.bam -@ 40
+#	lofreq call --call-indels -f reference/sequence.fasta -o ${output}_indel.vcf ${output}_indel.bam
+#done
+
+printf "\e[4mBuild consensus genome...\n\e[0m"
+
+for i in $(ls *indel.vcf)
 do
 	output=$(echo $i | cut -f1 -d"_")
-	lofreq indelqual $i --dindel -f reference/sequence.fasta -o ${output}_indel.bam
-	samtools index ${output}_indel.bam -@ 40
-	lofreq call --call-indels -f reference/sequence.fasta -o ${output}_indel.vcf ${output}_indel.bam
+	bgzip -c $i 1> ${output}_indel.vcf.gz
+	tabix ${output}_indel.vcf.gz
+	bcftools consensus -f reference/sequence.fasta ${output}_indel.vcf.gz -o ${output}_consensus.fa
 done
