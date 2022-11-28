@@ -25,12 +25,22 @@ printf "\e[4mAlign the reads to the reference genome...\n\e[0m"
 
 printf "\e[4mProcessing sam...\n\e[0m"
 
-for i in $(ls *sam)
+#for i in $(ls *sam)
+#do
+#	output=$(echo $i | cut -f1 -d".")
+#	samtools sort -n -O bam -o ${output}_namesort.bam $i -@ 40
+#	samtools fixmate -m ${output}_namesort.bam ${output}_fixmate.bam -@ 40
+#	samtools sort -O bam -o ${output}_sorted.bam -T${output}_temp.txt ${output}_fixmate.bam -@ 40
+#	samtools markdup -r -s ${output}_sorted.bam ${output}_markdup.bam -@ 40
+#	samtools index ${output}_markdup.bam -@ 40
+#done
+
+printf "\e[4mCall variants...\n\e[0m"
+
+for i in $(ls *markdup.bam)
 do
-	output=$(echo $i | cut -f1 -d".")
-	samtools sort -n -O bam -o ${output}_namesort.bam $i -@ 40
-	samtools fixmate -m ${output}_namesort.bam ${output}_fixmate.bam -@ 40
-	samtools sort -O bam -o ${output}_sorted.bam -T${output}_temp.txt ${output}_fixmate.bam -@ 40
-	samtools markdup -r -s ${output}_sorted.bam ${output}_markdup.bam -@ 40
-	samtools index ${output}_markdup.bam -@ 40
+	output=$(echo $i | cut -f1 -d"_")
+	lofreq indelqual $i --dindel -f reference/sequence.fasta -o ${output}_indel.bam
+	samtools index ${output}_indel.bam -@ 40
+	lofreq call --call-indels -f reference/sequence.fasta -o ${output}_indel.vcf ${output}_indel.bam
 done
