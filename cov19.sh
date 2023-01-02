@@ -55,3 +55,11 @@ do
         nper=$(echo "scale=2; $n_len/$t_len" | bc)
         echo "$sample,$nper" >> per.csv
 done
+
+# create multifasta file for sequences with N contente below 50%
+for i in $(awk -F"," '$2 < 0.5 {print $1}' per.csv)
+do
+        output=$(echo $i | cut -f2 -d"-")
+        echo ">hCoV-19/Uganda/$output/2022" >> all_sequences.fasta
+        cat ${i}.consensus.fa | grep -v ">" >> all_sequences.fasta
+done
