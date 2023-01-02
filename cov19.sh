@@ -72,10 +72,10 @@ do
         echo "$output,$cov" >> coverage.txt
 done
 
-nextclade dataset get --name 'sars-cov-2' --output-dir '$HOME/data/sars-cov-2' # download and update nextclade dataset
+nextclade dataset get --name 'sars-cov-2' --output-dir 'data/sars-cov-2' # download and update nextclade dataset
 
 # run nextclade
-nextclade run --input-dataset=/home/kanye/data/sars-cov-2 --output-csv=nextclade.csv all_sequences.fasta
+nextclade run --input-dataset=data/sars-cov-2 --output-csv=nextclade.csv all_sequences.fasta
 
 
 # pangolin lineage assignment
