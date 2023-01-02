@@ -15,5 +15,7 @@ dependencies:
   - bcftools
   - tabix
   - nextclade
-  - trim_galore
+  - trim-galore
   - lofreq
+  - bwa
+  - ivar
