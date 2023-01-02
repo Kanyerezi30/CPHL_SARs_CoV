@@ -2,12 +2,12 @@
 
 printf "\e[4mTrimming poor quality reads...\n\e[0m"
 
-for i in $(ls data/ | cut -f1 -d"_" | sort -u)
-do
-	R1=$(ls data/${i}*R1*)
-	R2=$(ls data/${i}*R2*)
-	mkdir tmp
-	trim_galore -q 28 --cores 40 --paired $R1 $R2 --output_dir tmp	
+#for i in $(ls data/ | cut -f1 -d"_" | sort -u)
+#do
+#	R1=$(ls data/${i}*R1*)
+#	R2=$(ls data/${i}*R2*)
+#	mkdir tmp
+#	trim_galore -q 28 --cores 40 --paired $R1 $R2 --output_dir tmp	
 done
 
 #printf "\e[4mIndex the reference genome...\n\e[0m"
@@ -50,8 +50,8 @@ printf "\e[4mBuild consensus genome...\n\e[0m"
 for i in $(ls *indel.vcf)
 do
 	output=$(echo $i | cut -f1 -d"_")
-	bgzip -c $i 1> ${output}_indel.vcf.gz
-	tabix ${output}_indel.vcf.gz
+#	bgzip -c $i 1> ${output}_indel.vcf.gz
+#	tabix ${output}_indel.vcf.gz
 	bcftools consensus -f reference/sequence.fasta ${output}_indel.vcf.gz -o ${output}_consensus.fa
 done
 
