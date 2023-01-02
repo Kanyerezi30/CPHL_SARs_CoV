@@ -76,3 +76,11 @@ nextclade dataset get --name 'sars-cov-2' --output-dir '$HOME/data/sars-cov-2' #
 
 # run nextclade
 nextclade run --input-dataset=/home/kanye/data/sars-cov-2 --output-csv=nextclade.csv all_sequences.fasta
+
+
+# pangolin lineage assignment
+conda deactivate
+
+conda activate pangolin
+
+pangolin all_sequences.fasta --outfile pangolin.csv
