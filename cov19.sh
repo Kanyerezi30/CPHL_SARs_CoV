@@ -41,3 +41,17 @@ do
         samtools mpileup -aa -A -d 0 -Q 0 $i | \
         ivar consensus -n N -p ${sample}.consensus -i $sample
 done
+
+# count percentage of Ns
+for i in $(ls *fa)
+do
+        sample=$(echo $i | cut -f1 -d".")
+        lines=$(cat $i | grep -vc ">")
+        chars=$(grep -v ">" $i | wc -m)
+        t_len=$(echo "$chars-$lines" | bc)
+        n_lines=$(cat $i | grep -v ">" | grep -o "N" | wc -l)
+        nchars=$(cat $i | grep -v ">" | grep -o "N" | wc -m)
+        n_len=$(echo "$nchars-$n_lines" | bc)
+        nper=$(echo "scale=2; $n_len/$t_len" | bc)
+        echo "$sample,$nper" >> per.csv
+done
