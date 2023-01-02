@@ -31,3 +31,13 @@ do
         samtools sort -o ${sample}.mapped.sorted.bam ${sample}.mapped.bam
         samtools index ${sample}.mapped.sorted.bam
 done
+
+# call variants with ivar
+for i in $(ls *.mapped.sorted.bam)
+do
+        sample=$(echo $i | cut -f1 -d".")
+        samtools mpileup -aa -A -d 0 -B -Q 0 --reference ref/sequence.fasta $i | \
+        ivar variants -r ref/sequence.fasta -p ${sample}.variants -g GCF_009858895.2_ASM985889v3_genomic.gff
+        samtools mpileup -aa -A -d 0 -Q 0 $i | \
+        ivar consensus -n N -p ${sample}.consensus -i $sample
+done
