@@ -12,14 +12,14 @@ do
         trim_galore --paired $forward $reverse
 done
 
-bwa index ref/sequence.fasta # index reference
+#bwa index ref/sequence.fasta # index reference
 
 # Perform alignment
 for i in $(ls *val*gz | cut -f1 -d"_" | sort -u)
 do
         forward=$(ls ${i}*_R1_*val_1*)
         reverse=$(ls ${i}*_R2_*val_2*)
-        bwa mem -t 20 ref/sequence.fasta $forward $reverse | \
+        bwa mem -t 20 reference/sequence.fasta $forward $reverse | \
         samtools sort -o ${i}.sorted.bam
 done
 
@@ -36,8 +36,8 @@ done
 for i in $(ls *.mapped.sorted.bam)
 do
         sample=$(echo $i | cut -f1 -d".")
-        samtools mpileup -aa -A -d 0 -B -Q 0 --reference ref/sequence.fasta $i | \
-        ivar variants -r ref/sequence.fasta -p ${sample}.variants -g GCF_009858895.2_ASM985889v3_genomic.gff
+        samtools mpileup -aa -A -d 0 -B -Q 0 --reference reference/sequence.fasta $i | \
+        ivar variants -r reference/sequence.fasta -p ${sample}.variants -g GCF_009858895.2_ASM985889v3_genomic.gff
         samtools mpileup -aa -A -d 0 -Q 0 $i | \
         ivar consensus -n N -p ${sample}.consensus -i $sample
 done
