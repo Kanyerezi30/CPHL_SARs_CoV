@@ -11,3 +11,5 @@ do
         reverse=$(ls ${i}*_R2_*)
         trim_galore --paired $forward $reverse
 done
+
+bwa index ref/sequence.fasta # index reference
