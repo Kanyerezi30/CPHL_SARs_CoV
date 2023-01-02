@@ -22,3 +22,12 @@ do
         bwa mem -t 20 ref/sequence.fasta $forward $reverse | \
         samtools sort -o ${i}.sorted.bam
 done
+
+# process bam file
+for i in $(ls *sorted.bam)
+do
+        sample=$(echo $i | cut -f1 -d".")
+        samtools view -F4 $i -o ${sample}.mapped.bam
+        samtools sort -o ${sample}.mapped.sorted.bam ${sample}.mapped.bam
+        samtools index ${sample}.mapped.sorted.bam
+done
