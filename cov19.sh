@@ -71,3 +71,5 @@ do
         cov=$(samtools depth $i |  awk '{sum+=$3} END { print sum/NR}')
         echo "$output,$cov" >> coverage.txt
 done
+
+nextclade dataset get --name 'sars-cov-2' --output-dir '$HOME/data/sars-cov-2' # download and update nextclade dataset
