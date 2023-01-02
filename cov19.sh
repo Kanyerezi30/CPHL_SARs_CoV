@@ -63,3 +63,11 @@ do
         echo ">hCoV-19/Uganda/$output/2022" >> all_sequences.fasta
         cat ${i}.consensus.fa | grep -v ">" >> all_sequences.fasta
 done
+
+# calculate coverage 
+for i in $(ls *mapped.sorted.bam)
+do
+        output=$(echo $i | cut -f1 -d"_")
+        cov=$(samtools depth $i |  awk '{sum+=$3} END { print sum/NR}')
+        echo "$output,$cov" >> coverage.txt
+done
