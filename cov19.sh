@@ -8,10 +8,10 @@ input=$(echo $1 | sed 's;/$;;') # provide path for the fastq files
 output=$(echo $2 | sed 's;/$;;') # provide path for output results
 
 # Quality assessment
-for i in $(ls *fastq*gz | cut -f1 -d"_" | sort -u)
+for i in $(ls ${input}/*gz | awk -F"/" '{print $NF}' | cut -f1 -d"_" | sort -u)
 do
-        forward=$(ls ${i}*_R1_*)
-        reverse=$(ls ${i}*_R2_*)
+        forward=$(ls ${input}/${i}*_R1_*)
+        reverse=$(ls ${input}/${i}*_R2_*)
         trim_galore --paired $forward $reverse
 done
 
