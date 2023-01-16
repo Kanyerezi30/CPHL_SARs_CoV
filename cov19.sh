@@ -4,6 +4,9 @@
 
 conda activate sarscov
 
+input=$(echo $1 | sed 's;/$;;') # provide path for the fastq files
+output=$(echo $2 | sed 's;/$;;') # provide path for output results
+
 # Quality assessment
 for i in $(ls *fastq*gz | cut -f1 -d"_" | sort -u)
 do
