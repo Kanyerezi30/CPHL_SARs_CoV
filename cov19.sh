@@ -1,3 +1,5 @@
+
+
 #!/usr/bin/env bash
 
 . "$CONDA_PREFIX/etc/profile.d/conda.sh" # enable activation of the conda environment within script
@@ -98,4 +100,4 @@ mv all_sequences.fasta results/$results/consensus/ # transfer consensus file
 mv nextclade.csv results/$results/nextclade/ # transfer nextclade results
 mv pangolin.csv results/$results/pangolin/ #transfer pangolin results
 mv *variants.tsv results/$results/variants/ # transfer the variants
-rm *gz *bam *bai *fa *txt *
+rm *gz *bam *bai *fa *txt
