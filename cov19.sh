@@ -1,5 +1,3 @@
-
-
 #!/usr/bin/env bash
 
 . "$CONDA_PREFIX/etc/profile.d/conda.sh" # enable activation of the conda environment within script
@@ -7,7 +5,7 @@
 conda activate sarscov
 
 input=$(echo $1 | sed 's;/$;;') # provide path for the fastq files
-output=$(echo $2 | sed 's;/$;;') # provide path for output results
+foutput=$(echo $2 | sed 's;/$;;') # provide path for output results
 
 # Quality assessment
 for i in $(ls ${input}/*gz | awk -F"/" '{print $NF}' | cut -f1 -d"_" | sort -u)
@@ -91,7 +89,7 @@ conda activate pangolin
 pangolin all_sequences.fasta --outfile pangolin.csv
 
 ## transfer results to the results directory
-results=$(echo $output | awk -F"/" '{print $NF}')
+results=$(echo $foutput | awk -F"/" '{print $NF}')
 mkdir -p results/$results results/$results/consensus results/$results/cov_nper results/$results/nextclade results/$results/pangolin results/$results/variants
 
 mv per.csv results/$results/cov_nper/nper.csv # transfer percentage of Ns
