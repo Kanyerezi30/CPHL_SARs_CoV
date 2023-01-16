@@ -86,6 +86,7 @@ conda deactivate
 
 conda activate pangolin
 
+pangolin --update # update pangolin
 pangolin all_sequences.fasta --outfile pangolin.csv
 
 ## transfer results to the results directory
@@ -93,7 +94,7 @@ results=$(echo $foutput | awk -F"/" '{print $NF}')
 mkdir -p results/$results results/$results/consensus results/$results/cov_nper results/$results/nextclade results/$results/pangolin results/$results/variants
 
 mv per.csv results/$results/cov_nper/nper.csv # transfer percentage of Ns
-mv coverage.txt results/$results/ # transfer coverage file
+mv coverage.txt results/$results/cov_nper/ # transfer coverage file
 mv all_sequences.fasta results/$results/consensus/ # transfer consensus file
 mv nextclade.csv results/$results/nextclade/ # transfer nextclade results
 mv pangolin.csv results/$results/pangolin/ #transfer pangolin results
