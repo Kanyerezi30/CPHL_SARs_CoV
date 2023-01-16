@@ -40,7 +40,7 @@ for i in $(ls *.mapped.sorted.bam)
 do
         sample=$(echo $i | cut -f1 -d".")
         samtools mpileup -aa -A -d 0 -B -Q 0 --reference reference/sequence.fasta $i | \
-        ivar variants -r reference/sequence.fasta -p ${sample}.variants -g GCF_009858895.2_ASM985889v3_genomic.gff
+        ivar variants -r reference/sequence.fasta -p ${sample}.variants -g reference/GCF_009858895.2_ASM985889v3_genomic.gff
         samtools mpileup -aa -A -d 0 -Q 0 $i | \
         ivar consensus -n N -p ${sample}.consensus -i $sample
 done
