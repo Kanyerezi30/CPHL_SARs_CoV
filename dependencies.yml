@@ -16,6 +16,8 @@ dependencies:
   - tabix
   - nextclade
   - trim-galore
+  - python=3.8
   - lofreq
   - bwa
   - ivar
+  - pangolin
