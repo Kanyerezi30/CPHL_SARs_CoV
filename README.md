@@ -20,6 +20,11 @@ This pipeline is intended to call variants, build consensus genomes and determin
 `bash Miniconda3-latest-MacOSX-x86_64.sh`
 
 - Export miniconda into the PATH using `export PATH=~/miniconda3/bin:$PATH`
+
+Install _**Mamba Package Manager**_ for faster installation & environment resolution:   
+`conda install -c conda-forge -y mamba`
+`conda update -n base -c defaults conda`
+
 - Clone this repository using `git clone https://github.com/Kanyerezi30/CPHL_SARs_CoV.git`
 - Change to this directory using `cd CPHL_SARs_CoV`
 - Install using `mamba env create -n sarscov --file dependencies.yml`
