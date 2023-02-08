@@ -1,6 +1,7 @@
 <p align="middle">
 <img width="200" height="180" src="resources/logo.jpg">
 </p>
+
 # CPHL-SARs-CoV Genomics Bioinformatics Pipeline
 
 ## 📝 Description
